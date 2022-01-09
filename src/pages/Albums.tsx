@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { Album } from '../types/Album';
 
@@ -20,7 +21,7 @@ export const Albums = () => {
             <div>
                 {albums.map((item, index) => (
                     <div key={index}>
-                        <h4>{item.title}</h4>
+                        <h4><Link to="/:slug/:slug/:slug">{item.title}</Link></h4>
                     </div>
                 ))}
             </div>
