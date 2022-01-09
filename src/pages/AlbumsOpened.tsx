@@ -1,20 +1,31 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { api } from '../api';
-import { AlbumOpened } from '../types/AlbumOpened';
+import { Photo } from '../types/Photo';
+import { PhotoItem } from '../components/PhotoItem';
+import { Album as AlbumType } from '../types/Album';
 
 export const AlbumsOpened = () => {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [album, setAlbum] = useState<AlbumOpened[]>([]);
+    const [list, setList] = useState<Photo[]>([]);
+    const [album, setAlbum] = useState<AlbumType>({id: 0, title: '', userId: 0});
 
     useEffect(() => {
-        loadAlbum();
+        if(params.id) {
+            loadPhotos(params.id);
+            loadAlbum(params.id);
+        }
     }, []);
 
-    const loadAlbum = async () => {
-        let json = await api.getAlbum();
+    const loadPhotos = async (id: string) => {
+        let json = await api.getPhotosFromAlbum(id);
+        setList(json)
+    }
+
+    const loadAlbum = async (id: string) => {
+        let json = await api.getAlbum(id);
         setAlbum(json);
     }
 
@@ -23,16 +34,25 @@ export const AlbumsOpened = () => {
     }
     return (
         <div>
-            <h1>Galeria de Fotos: {album.length}</h1>
+            <h1>Galeria de Fotos</h1>
             <hr />
             <button onClick={backButton}>Voltar</button>
+
+            <h1>{album.title}</h1>
+
             <div>
-                {album.map((item, index) => (
+                {list.map((item, index) => (
+                    <PhotoItem
+                        key={index}
+                        data={item}
+                    />
+                ))}
+                {/* {album.map((item, index) => (
                     <div key={index}>
                         <h4>{item.title}</h4>
-                        <img src={item.thumbnailUrl} />
+                        <Link to="/photos/1"><img src={item.thumbnailUrl}/></Link>
                     </div>
-                ))}
+                ))} */}
             </div>
         </div>
     )

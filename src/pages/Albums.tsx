@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '../api';
 import { Album } from '../types/Album';
+import { AlbumItem } from '../components/AlbumItem';
 
 export const Albums = () => {
     const [albums, setAlbums] = useState<Album[]>([]);
+    const params = useParams();
 
     useEffect(() => {
         loadAlbums();
@@ -20,9 +22,11 @@ export const Albums = () => {
             <hr />
             <div>
                 {albums.map((item, index) => (
-                    <div key={index}>
-                        <h4><Link to="/:slug/:slug/:slug">{item.title}</Link></h4>
-                    </div>
+                    <AlbumItem 
+                        key={index}
+                        id={item.id}
+                        title={item.title}
+                    />
                 ))}
             </div>
         </div>
