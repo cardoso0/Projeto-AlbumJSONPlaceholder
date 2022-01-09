@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api';
 import { Album } from '../types/Album';
-import { AboutItem } from './AlbumItem';
 
-export const Home = () => {
+export const Albums = () => {
     const [albums, setAlbums] = useState<Album[]>([]);
 
     useEffect(() => {

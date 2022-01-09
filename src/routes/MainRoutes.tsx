@@ -1,13 +1,13 @@
 import { useRoutes } from 'react-router-dom'
 
 // import { RequireAuth } from '../RequireAuth';
-import { Home } from '../pages/Home'
-import { AboutItem } from '../pages/AlbumItem'
+import { Albums } from '../pages/Albums'
+import { AlbumsOpened } from '../pages/AlbumsOpened'
 
 export const MainRoutes = () => {
     return useRoutes([
-        { path: '/', element: <Home /> },
+        { path: '/', element: <Albums /> },
         // { path: '/sobre', element: <RequireAuth><About /></RequireAuth> },
-        { path: '/sobre/:slug', element: <AboutItem /> }
+        { path: '/:slug/:slug/:slug', element: <AlbumsOpened /> }
     ])
 }
